@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}snlght{% endblock %}</title>
+		<link rel="stylesheet" href="/static/css/basscss.min.css">
+		<style>
+			ul.links {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul.links .link { margin: 1.4em 0; }
+			form p { margin: 1.5em 0; }
+		</style>
+	</head>
+	<body>
+
+		<div class="container" style="padding-top: 30px;">
+		  <div class="clearfix">
+			{% block sidebar %}
+				<div class="md-col md-col-2">
+					<p class="h1">SNLGHT</p>
+					<div class="sm-col-8">
+						<div class="mxn2">
+							<a href="/make" class="button block button-nav-light">New</a>
+							<a href="/recent" class="button block button-nav-light">Recent</a>
+							<a href="/top" class="button block button-nav-light">Top</a>
+							<a href="/dump" class="button block button-nav-light">Dump</a>
+							<a href="/logout" class="button block button-nav-light">Logout</a>
+						</div>
+						<hr>
+						<form action="/search" method="post">
+							<input type="text" name="q" class="block full-width field-light">
+							<button type="submit" class="button-blue full-width">Search</button>
+						</form>
+					</div>
+				</div>
+			{% endblock %}
+		  	<div class="md-col md-col-10">
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category, message in messages %}
+							{% if category == 'success' %}
+								<p class="button-small rounded bg-green white">{{ message }}</p>
+							{% elif category == 'warn' %}
+								<p class="button-small rounded bg-yellow white">{{ message }}</p>
+							{% elif category == 'error' %}
+								<p class="button-small rounded bg-red white">{{ message }}</p>
+							{% else %}
+								<p class="button-small rounded bg-blue white">{{ message }}</p>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+		  		{% block content %}{% endblock %}
+		  	</div>
+		  </div>
+		</div>
+	</body>
+</html>

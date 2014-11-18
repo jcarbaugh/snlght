@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p class="h2 button-small white bg-dark-gray">Welcome, friend.</p>
+	<div class="sm-col-4">
+		<form action="/login" method="post">
+			<input type="password" name="password" class="block full-width field-light">
+			<button type="submit" class="button-blue full-width">Login</button>
+		</form>
+	</div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

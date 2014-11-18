@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p class="h2 button-small white bg-dark-gray">Hey pal, let's shorten a URL</p>
+
+	<form action="/make" method="post" class="sm-col-6">
+
+		<p>
+			<label for="id-url">URL</label>
+			<input type="text" name="url" class="block full-width field-light" id="id-url" value="{{ url }}">
+		</p>
+
+		<p>
+			<label for="id-slug">Short URL <small>(override if you want)</small></label>
+			<br>
+			<span style="float: left; font-size: 120%; padding: 4px 5px 0 0;" class="mid-gray">http://snlg.ht/</span>
+			<input style="display: inline; float: none;" type="text" name="slug" class="block half-width field-light" id="id-slug" value="{{ slug }}">
+		</p>
+		
+		<p>
+			<label for="id-title">Page Title <small>(leave blank to pull automatically)</small></label>
+			<input type="text" name="title" class="block full-width field-light" id="id-title" value="{{ title }}">
+		</p>
+
+		<button type="submit" class="button-blue">Shorten</button>
+
+	</form>
+{% endblock %}

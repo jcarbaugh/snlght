@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p class="h2 button-small white bg-dark-gray">{{ title or 'Some shorts for you' }}</p>
+	<ul class="links">
+		{% for link in links %}
+			<li class="link clearfix">
+				<div style="float: left; margin: 0 10px 10px 0; width: 80px;">
+					<div class="h3 button-small white bg-yellow rounded center">
+						{% if link.visits >= 1000 %}
+							<span class="h2">{{ link.visits/100 }}k</span>
+						{% else %}
+							<span class="h2">{{ link.visits }}</span>
+						{% endif %}
+					</div>
+					<!--
+					<a href="/{{ link.slug }}" class="button-small white bg-mid-gray rounded center" style="display: block; font-size: 80%; margin-top: 2px;">{{ link.slug }}</a>
+					-->
+				</div>
+				<div style="line-height: 150%;">
+					<a href="/l/{{ link.slug }}" style="font-size: 120%;">
+						{% if link.title %}
+							<span class="">{{ link.title|truncate(70) }}</span>
+						{% else %}
+							<span class="mid-gray">no title</span>
+						{% endif %}
+					</a>
+				</div>
+				<a href="{{ link.url }}" class="mid-gray">{{ link.url|truncate(70, True) }}</a>
+				<a href="/{{ link.slug }}" style="font-size: 100%;">➠</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
