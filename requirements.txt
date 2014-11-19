@@ -5,6 +5,7 @@ MarkupSafe==0.23
 Werkzeug==0.9.6
 itsdangerous==0.24
 lxml==3.4.0
-pymongo==2.7.2
+pymongo>=2.7,<2.8
+requests>=2.4,<2.5
 unicodecsv
-waitress==0.8.9
+waitress>=0.8,<0.9

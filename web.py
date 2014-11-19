@@ -7,6 +7,7 @@ import lxml.html
 import os
 import pymongo
 import random
+import requests
 import unicodecsv
 import StringIO
 
@@ -87,8 +88,23 @@ def shorten(url, slug=None, save=True):
 
 
 def fetch_title(url):
-	t = lxml.html.parse(url)
-	return t.find(".//title").text
+
+	try:
+
+		resp = requests.get(url)
+		if resp.status_code != 200:
+			return
+
+		doc = lxml.html.document_fromstring(resp.content)
+		elem = doc.find(".//title")
+
+		if elem is not None:
+			return elem.text
+
+	except requests.exceptions.ConnectionError:
+		pass # we'll just ignore this
+	except requests.exceptions.MissingSchema:
+		pass # ignore this too
 
 
 #
@@ -203,10 +219,8 @@ def make():
 		try:
 
 			link = shorten(data['url'], data['slug'], save=False)
-			if data['title']:
-				link['title'] = data['title']
-			else:
-				link['title'] = fetch_title(data['url'])
+			link['title'] = data['title'] or fetch_title(data['url'])
+			
 			mongo.links.save(link)
 
 			flash('Congrats! Your link is now short.', 'success')
