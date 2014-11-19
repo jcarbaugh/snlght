@@ -1,6 +1,6 @@
 # SNLGHT
 
-*No Bitly, we will NOT pay you for the free account you gave us years ago*
+*The anti-shakedown URL shortener.*
 
 ## Making it work
 
