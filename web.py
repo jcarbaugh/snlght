@@ -224,7 +224,7 @@ def make():
 			mongo.links.save(link)
 
 			flash('Congrats! Your link is now short.', 'success')
-			return redirect(url_for('recent_view'))
+			return redirect(url_for('detail_view', slug=data['slug']))
 
 		except ValueError, ve:
 			flash('Oh noes! %s' % ve.message, 'error')
@@ -275,6 +275,14 @@ def recent_view():
 def top_view():
 	links = mongo.links.find().limit(20).sort('visits', -1)
 	return render_template('list.html', links=links, title='Most popular shorts for you')
+
+
+@app.route('/l/<slug>', methods=['GET'])
+def detail_view(slug):
+	link = mongo.links.find_one({'slug': slug})
+	if not link:
+		abort(404)
+	return render_template('detail.html', link=link)
 
 
 @app.route('/<slug>', methods=['GET'])

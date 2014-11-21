@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p class="h2 button-small white bg-dark-gray">The link you requested is here...</p>
+
+	<div style="float: left; margin: 0 10px 10px 0; width: 80px;">
+		<div class="h3 button-small white bg-yellow rounded center">
+			{% if link.visits >= 1000 %}
+				<span class="h2">{{ link.visits/100 }}k</span>
+			{% else %}
+				<span class="h2">{{ link.visits }}</span>
+			{% endif %}
+		</div>
+	</div>
+	<div style="line-height: 150%;">
+		<span class="h3">
+			{% if link.title %}
+				{{ link.title|truncate }}
+			{% else %}
+				no title
+			{% endif %}
+		</span>
+	</div>
+	<div class="link clearfix">
+		<p class="sm-col-6 mt3">
+			Shortened to <input type="text" value="http://snlg.ht/{{ link.slug }}" class="block half-width field-light" style="display: inline;">
+			<a href="/{{ link.slug }}" style="font-size: 100%;">➠</a>
+		</p>
+		<p><small>Originally <a href="{{ link.url }}">{{ link.url }}</a></small></p>
+	</div>
+
+{% endblock %}
